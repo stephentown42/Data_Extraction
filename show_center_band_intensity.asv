@@ -1,0 +1,49 @@
+function show_center_band_intensity
+
+if nargin == 0
+    ferret = 'F1806_Amy';
+    block = 'Block_J5-200';
+end
+
+% Define and extend paths
+dirs.tank = 'D:\UCL_Behaving';
+dirs.ferret = fullfile( dirs.tank, ferret);
+
+
+% Load TDT data containing center band intensity
+T = TDT2mat( dirs.ferret, block, 'STORE', 'DOut', 'CHANNEL', 4);
+T = T.streams.DOut;
+
+% Get number of samples and duration of recording
+T.nSamps = size(T.data, 2);
+T.duration = T.nSamps / T.fs;
+
+
+% Show the first five minutes of data
+if T.duration > 300
+    samp_vec = 1 : round(300 * T.fs);
+else
+    samp_vec = 1 : T.nSamps;
+end
+
+figureST;
+plot( samp_vec ./ T.fs, T.data(samp_vec), 'color','m')
+xlim([1 max(samp_vec) / T.fs])
+ylim([0 255])
+box off
+xlabel('Time (s)')
+ylabel('Mean pixel intensity [0 to 255]')
+
+% Ignore the first 10 seconds of data
+% (This is when the camera is starting up while the TDT is already running)
+T.data(1, 1 : floor(10 * T.fs)) = nan;
+
+% Draw histogram of pixel intensity over the entire session
+hist_edges = 0 : 5 : 255;
+n_hist = histc( T.data(:), hist_edges);
+
+figureST;
+b = bar(hist_edges, n_hist, 'histc');
+set(b,'EdgeColor','none','FaceColor',[1 0.5 1])
+box off
+xlabel('Mean pixel intensity [0 to 255]')
