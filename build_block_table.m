@@ -88,7 +88,7 @@ T = table(tank_name(:), block_name(:), block_date(:), block_duration(:),...
         'VariableNames', {'Ferret','Block','DateNum','Duration'});
     
 if ~isempty(T)        
-    T.datetime = datetime( T.datenum, 'ConvertFrom', 'datenum');
+    T.datetime = datetime( T.DateNum, 'ConvertFrom', 'datenum');
 end
 
 % Add to existing table if required
@@ -102,8 +102,7 @@ end
 
 % Update saved file
 if ~issame( size(E), size(T))
-    save_path = fullfile( dirs.tanks, 'Block_Table.csv');
-    writetable(T, save_path,'delimiter',',')
+    writetable(T, existing_table, 'delimiter', ',')
 end
 
 catch err
