@@ -1,5 +1,21 @@
 function verifyTrialOnset_CF(ferret)
-
+%
+% Developed for use with animals in Coordinate Frames project
+%
+% Input:
+%   - ferret: string (e.g. "F1807*") denoting subject of interest
+%        (use either full name "F1807_Carter" or "F1807*" for short)
+%
+% Output: 
+%   Figures:
+%       Histogram of pixel intensities on white strip over center platform
+%       Time vs. sensor plot with synchronization signal (DOut) and start times from behavioural data overlaid
+%
+% Requirments
+%   - specific path structure for root and behavioral files
+%
+% 
+% Stephen Town - 13th Dec 2018
 
 if nargin == 0    
     ferret = 'F1807*';
@@ -8,7 +24,6 @@ end
 % Specify paths
 dirs.root = 'D:\UCL_Behaving';
 dirs.behav = 'D:\Behavior';
-
 
 % List subjects
 ferrets = dir( fullfile(dirs.root, ferret));
@@ -42,7 +57,7 @@ for i = 1 : length(ferrets)
         DOut = DOut.streams.DOut;
         Sens = Sens.streams.Sens;
         
-        % Draw distribution
+        % Draw distribution of center strip values
         pxl_edges = 0 : 5 : 255;
         pxl_inst = histc(DOut.data(4,:), pxl_edges);
         
@@ -50,8 +65,7 @@ for i = 1 : length(ferrets)
         hold on
         bar(pxl_edges, pxl_inst, 'histc')
         xlabel('Pixel Value')
-        ylabel('Instances (n)')
-        
+        ylabel('Instances (n)')        
         
         % Create time vectors
         DOut.tvec = [1 : size(DOut.data, 2)] ./ DOut.fs;
@@ -88,7 +102,3 @@ for i = 1 : length(ferrets)
         
     end
 end
-
-
-
-
