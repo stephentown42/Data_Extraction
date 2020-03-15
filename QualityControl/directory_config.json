@@ -1,0 +1,21 @@
+{
+	"tank_dir": "G:/UCL_Behaving",	
+	"ferrets": ["F1506_Phoenix",
+		"F1517_Mavis",
+		"F1518_Rita",
+		"F1602_Agatha",
+		"F1605_Snorlax",
+		"F1607_CifJif",
+		"F1613_Ariel"],
+	"output":{
+		"show_image": true,
+		"save_image": true,
+		"save_data": true},
+	"save_dir": {
+		"png": "C:/Users/steph/Desktop/TaskSwitch_trialOnsetVerification/Figures",
+		"csv": "C:/Users/steph/Desktop/TaskSwitch_trialOnsetVerification/Behavior",
+		"mat": "C:/Users/steph/Desktop/TaskSwitch_trialOnsetVerification/Stim_Mask"},
+	"behav_dir": "C:/Users/steph/CloudStation/Frontiers/Task Switching/Behavior/Original_Data",
+	"tdt_lib": "C:/Users/steph/Documents/MATLAB/TDTSDK",
+	"window":[-1.5,2]	
+}
