@@ -1,4 +1,4 @@
-function draw_timeline_heatmap(dt)
+function calmap(dt)
 %
 % Produces a heatmap in the style of the github commit graph in which every
 % day is a cell. Here, every year is shown on a separate axis on a separate
